@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>클로드 코워크 실전 프롬프트 30종 | 엑스퍼트 AI 클럽</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EC;
+    --cream-deep:#F3E9D5;
+    --gold:#C99A3F;
+    --gold-soft:#E0BD72;
+    --brown:#5A4226;
+    --brown-deep:#3A2A16;
+    --ink:#2C2418;
+    --line:#E3D5BA;
+    --white:#FFFDF8;
+    --tag-bg:#F0E4CA;
+    --shadow:0 14px 40px -18px rgba(90,66,38,.35);
+    --shadow-sm:0 6px 18px -10px rgba(90,66,38,.30);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Noto Sans KR',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .serif{font-family:'Gowun Batang',serif}
+
+  /* ===== 배경 텍스처 ===== */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(201,154,63,.07), transparent 42%),
+      radial-gradient(circle at 88% 82%, rgba(90,66,38,.06), transparent 45%);
+    pointer-events:none;z-index:0;
+  }
+
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
+
+  /* ===== HERO ===== */
+  header.hero{
+    padding:78px 0 56px;
+    text-align:center;
+    position:relative;
+  }
+  .kicker{
+    display:inline-block;
+    font-size:13px;letter-spacing:.22em;
+    color:var(--gold);
+    font-weight:700;
+    border:1px solid var(--gold-soft);
+    border-radius:50px;
+    padding:7px 20px;
+    margin-bottom:26px;
+    background:var(--white);
+  }
+  header.hero h1{
+    font-family:'Gowun Batang',serif;
+    font-size:clamp(30px,6.4vw,52px);
+    line-height:1.32;
+    color:var(--brown-deep);
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  header.hero h1 .hl{
+    color:var(--gold);
+    position:relative;
+    white-space:nowrap;
+  }
+  header.hero h1 .hl::after{
+    content:"";position:absolute;left:-2px;right:-2px;bottom:6px;height:11px;
+    background:rgba(201,154,63,.20);z-index:-1;border-radius:2px;
+  }
+  header.hero p.sub{
+    margin-top:24px;
+    font-size:clamp(15px,2.4vw,18px);
+    color:var(--brown);
+    max-width:600px;margin-left:auto;margin-right:auto;
+    line-height:1.85;
+  }
+  .hero-meta{
+    margin-top:34px;
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  }
+  .hero-meta span{
+    font-size:13px;color:var(--brown);
+    background:var(--white);
+    border:1px solid var(--line);
+    padding:8px 16px;border-radius:50px;
+    font-weight:500;
+  }
+
+  /* ===== 후기 작성자 인사 블록 ===== */
+  .greeting{
+    background:linear-gradient(135deg,#fff 0%,var(--cream-deep) 100%);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:34px 32px;
+    margin:14px 0 56px;
+    box-shadow:var(--shadow-sm);
+    position:relative;
+  }
+  .greeting::before{
+    content:"\201C";
+    font-family:'Gowun Batang',serif;
+    position:absolute;top:6px;left:22px;
+    font-size:74px;color:var(--gold-soft);opacity:.5;line-height:1;
+  }
+  .greeting p{
+    font-size:15.5px;color:var(--brown-deep);
+    padding-left:30px;line-height:1.9;
+  }
+  .greeting p + p{margin-top:14px}
+  .greeting .sign{
+    margin-top:20px;text-align:right;
+    font-size:14px;color:var(--gold);font-weight:700;
+    padding-left:30px;
+  }
+
+  /* ===== 사용법 안내 ===== */
+  .howto{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:14px;margin-bottom:60px;
+  }
+  .howto .step{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:22px 18px;
+    text-align:center;
+  }
+  .howto .num{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--gold);color:#fff;
+    font-weight:700;font-size:15px;
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 12px;
+  }
+  .howto .step h4{font-size:14.5px;color:var(--brown-deep);margin-bottom:6px}
+  .howto .step p{font-size:12.5px;color:var(--brown);line-height:1.65}
+
+  /* ===== 목차 ===== */
+  .toc{
+    background:var(--brown-deep);
+    border-radius:22px;
+    padding:38px 34px;
+    margin-bottom:64px;
+    color:var(--cream);
+  }
+  .toc h3{
+    font-family:'Gowun Batang',serif;
+    font-size:21px;margin-bottom:22px;
+    color:var(--gold-soft);
+    display:flex;align-items:center;gap:10px;
+  }
+  .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px}
+  .toc-grid a{
+    display:flex;align-items:center;gap:11px;
+    color:var(--cream);text-decoration:none;
+    font-size:14px;padding:8px 0;
+    border-bottom:1px solid rgba(227,213,186,.13);
+    transition:.2s;
+  }
+  .toc-grid a:hover{color:var(--gold-soft);padding-left:6px}
+  .toc-grid a b{
+    color:var(--gold-soft);font-size:13px;min-width:22px;
+  }
+  .toc-grid a .cnt{
+    margin-left:auto;font-size:11.5px;color:rgba(227,213,186,.55);
+  }
+
+  /* ===== 카테고리 섹션 ===== */
+  .cat{margin-bottom:64px;scroll-margin-top:24px}
+  .cat-head{
+    display:flex;align-items:flex-start;gap:18px;
+    margin-bottom:30px;padding-bottom:22px;
+    border-bottom:2px solid var(--line);
+  }
+  .cat-badge{
+    flex-shrink:0;
+    width:56px;height:56px;border-radius:15px;
+    background:linear-gradient(140deg,var(--gold),var(--brown));
+    color:#fff;font-family:'Gowun Batang',serif;
+    font-size:22px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--shadow-sm);
+  }
+  .cat-head .txt h2{
+    font-family:'Gowun Batang',serif;
+    font-size:clamp(21px,4vw,27px);
+    color:var(--brown-deep);line-height:1.35;font-weight:700;
+  }
+  .cat-head .txt p{
+    font-size:14px;color:var(--brown);margin-top:7px;line-height:1.7;
+  }
+
+  /* ===== 프롬프트 카드 ===== */
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:28px 28px 26px;
+    margin-bottom:18px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .25s ease, box-shadow .25s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+    background:linear-gradient(180deg,var(--gold),var(--brown));
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .card-top{
+    display:flex;align-items:center;gap:13px;margin-bottom:8px;
+  }
+  .card-no{
+    font-family:'Gowun Batang',serif;
+    font-size:14px;font-weight:700;color:#fff;
+    background:var(--gold);
+    padding:3px 12px;border-radius:50px;
+    flex-shrink:0;
+  }
+  .card h3{
+    font-size:17.5px;color:var(--brown-deep);
+    font-weight:700;line-height:1.45;
+  }
+  .when{
+    font-size:13px;color:var(--brown);
+    background:var(--tag-bg);
+    border-radius:9px;
+    padding:10px 14px;
+    margin:14px 0 16px;
+    line-height:1.65;
+  }
+  .when b{color:var(--gold);font-weight:700}
+
+  .prompt-box{
+    background:var(--cream);
+    border:1px dashed var(--gold-soft);
+    border-radius:12px;
+    padding:18px 18px 16px;
+    position:relative;
+  }
+  .prompt-box .label{
+    position:absolute;top:-10px;left:16px;
+    background:var(--gold);color:#fff;
+    font-size:11px;font-weight:700;letter-spacing:.08em;
+    padding:3px 11px;border-radius:50px;
+  }
+  .prompt-box .copy-btn{
+    position:absolute;top:-11px;right:14px;
+    background:var(--brown-deep);color:var(--cream);
+    border:none;cursor:pointer;
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:11.5px;font-weight:500;
+    padding:5px 14px;border-radius:50px;
+    transition:.2s;
+  }
+  .prompt-box .copy-btn:hover{background:var(--gold)}
+  .prompt-box .copy-btn.done{background:#5a7d4f}
+  .prompt-box pre{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:13.5px;color:var(--brown-deep);
+    white-space:pre-wrap;word-break:break-word;
+    line-height:1.85;margin-top:7px;
+  }
+  .prompt-box pre .ph{
+    color:var(--gold);font-weight:700;
+    background:rgba(201,154,63,.12);
+    padding:1px 5px;border-radius:4px;
+  }
+  .tip{
+    margin-top:15px;
+    font-size:13px;color:var(--brown);
+    display:flex;gap:9px;line-height:1.7;
+  }
+  .tip .ic{flex-shrink:0;font-size:14px}
+  .tip b{color:var(--brown-deep)}
+
+  /* ===== 마무리 ===== */
+  .closing{
+    background:linear-gradient(140deg,var(--brown-deep),var(--brown));
+    border-radius:24px;
+    padding:54px 38px;
+    text-align:center;
+    color:var(--cream);
+    margin-bottom:40px;
+  }
+  .closing h3{
+    font-family:'Gowun Batang',serif;
+    font-size:clamp(22px,4.4vw,30px);
+    margin-bottom:20px;color:#fff;line-height:1.45;
+  }
+  .closing h3 .gd{color:var(--gold-soft)}
+  .closing p{
+    font-size:15px;color:rgba(251,246,236,.85);
+    max-width:560px;margin:0 auto 14px;line-height:1.9;
+  }
+  .closing .final-tip{
+    margin-top:26px;
+    background:rgba(251,246,236,.08);
+    border:1px solid rgba(224,189,114,.3);
+    border-radius:14px;
+    padding:22px 24px;
+    font-size:14px;color:var(--cream);
+    text-align:left;line-height:1.85;
+  }
+  .closing .final-tip b{color:var(--gold-soft)}
+
+  footer{
+    text-align:center;padding:30px 0 56px;
+    color:var(--brown);font-size:13px;
+  }
+  footer .brand{
+    font-family:'Gowun Batang',serif;
+    color:var(--gold);font-weight:700;font-size:15px;
+    margin-bottom:6px;
+  }
+
+  /* 토스트 */
+  .toast{
+    position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(100px);
+    background:var(--brown-deep);color:var(--cream);
+    padding:13px 26px;border-radius:50px;
+    font-size:13.5px;font-weight:500;
+    box-shadow:var(--shadow);
+    opacity:0;transition:.35s cubic-bezier(.2,.8,.2,1);
+    z-index:99;pointer-events:none;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+  @media (max-width:680px){
+    .wrap{padding:0 16px}
+    header.hero{padding:54px 0 40px}
+    .howto{grid-template-columns:1fr;gap:10px}
+    .toc{padding:28px 22px}
+    .toc-grid{grid-template-columns:1fr}
+    .toc h3{font-size:18px}
+    .greeting{padding:28px 22px}
+    .greeting p,.greeting .sign{padding-left:8px}
+    .greeting::before{display:none}
+    .cat-head{gap:13px}
+    .cat-badge{width:46px;height:46px;font-size:18px}
+    .card{padding:24px 20px}
+    .closing{padding:42px 24px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">FOR. 코워크 세미나 후기를 남겨주신 분들께</span>
+    <h1>클로드 코워크<br><span class="hl">실전 프롬프트 30종</span></h1>
+    <p class="sub">세미나에서 "오, 이거 되네?"를 느끼셨다면, 이제 그 감각을 일상 업무로 옮길 차례예요. 한 번 써본 분들을 위해, 바로 복붙해서 효과 보는 30개를 골랐어요.</p>
+    <div class="hero-meta">
+      <span>🎯 1인 전문가 맞춤</span>
+      <span>📋 복붙용 프롬프트</span>
+      <span>💡 한 끗 팁 포함</span>
+      <span>🔧 코워크 고유 기능 중심</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 인사 -->
+  <div class="greeting">
+    <p>세미나 끝나고 후기까지 남겨주셔서 진짜 고마웠어요. 후기를 쓰셨다는 건, 이미 코워크를 "한 번은 만져본 분"이라는 뜻이잖아요. 그래서 이 자료는 "코워크가 뭐예요?" 수준이 아니라, <b>이미 써본 분이 다음 단계로 올라가는 데 필요한 것들</b>만 담았어요.</p>
+    <p>제가 매일 쓰면서 "이건 진짜 일이 줄어든다" 싶었던 것들 위주예요. 30개를 다 외울 필요는 없어요. 지금 내가 막힌 한 가지부터 골라서 한번 해보시면, 그 다음은 자연스럽게 따라오거든요.</p>
+    <div class="sign">— 최은희 &amp; 정장식 드림</div>
+  </div>
+
+  <!-- 사용법 -->
+  <div class="howto">
+    <div class="step">
+      <div class="num">1</div>
+      <h4>골라서 복사</h4>
+      <p>지금 내 업무에 맞는 카드 하나를 골라 [복사] 버튼을 눌러요</p>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <h4>대괄호만 채우기</h4>
+      <p><span style="color:var(--gold);font-weight:700">[이렇게 표시된 곳]</span>을 내 상황에 맞게 바꿔요</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <h4>코워크에 붙여넣기</h4>
+      <p>파일이 필요하면 같이 올리고, 결과를 받아보세요</p>
+    </div>
+  </div>
+
+  <!-- 목차 -->
+  <nav class="toc">
+    <h3>🗂️ 6개 묶음 · 30종 한눈에 보기</h3>
+    <div class="toc-grid">
+      <a href="#cat1"><b>A</b> 코워크 셋업 · 세션 관리 <span class="cnt">5종</span></a>
+      <a href="#cat2"><b>B</b> 파일 · 문서 자동화 <span class="cnt">5종</span></a>
+      <a href="#cat3"><b>C</b> 콘텐츠 생산 가속 <span class="cnt">5종</span></a>
+      <a href="#cat4"><b>D</b> 비즈니스 운영 <span class="cnt">5종</span></a>
+      <a href="#cat5"><b>E</b> 고객 · 데이터 정리 <span class="cnt">5종</span></a>
+      <a href="#cat6"><b>F</b> 나만의 워크플로 설계 <span class="cnt">5종</span></a>
+    </div>
+  </nav>
+
+  <!-- ===== 카테고리 A ===== -->
+  <section class="cat" id="cat1">
+    <div class="cat-head">
+      <div class="cat-badge">A</div>
+      <div class="txt">
+        <h2>코워크 셋업 · 세션 관리</h2>
+        <p>후기 쓴 분들이 가장 많이 막히는 지점이에요. 프로젝트를 어떻게 잡고, 세션을 어떻게 이어가느냐에서 결과물 퀄리티가 갈리거든요.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">01</span><h3>업무별 프로젝트 구조 설계받기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 코워크에 프로젝트를 만들긴 했는데, 폴더랑 파일을 어떻게 나눠야 할지 감이 안 잡힐 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>나는 <span class="ph">[직업/하는 일]</span> 일을 하는 1인 전문가예요.
+주로 하는 업무는 <span class="ph">[예: 고객 상담, 강의안 제작, 콘텐츠 발행]</span> 이렇게 3가지예요.
+
+이 업무들을 코워크에서 효율적으로 굴리려면
+프로젝트와 폴더 구조를 어떻게 잡는 게 좋을지 추천해줘.
+- 어떤 단위로 프로젝트를 나눌지
+- 각 프로젝트에 어떤 자료를 미리 넣어두면 좋을지
+- 내가 매번 반복 설명하지 않아도 되게 하려면 뭘 세팅해둬야 할지
+실제 폴더 이름까지 구체적으로 제안해줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "내 업무 3가지"를 구체적으로 적을수록 구조가 정확해져요. 막연하게 "마케팅"보다 "주 2회 블로그 발행"처럼 빈도까지 쓰면 좋아요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">02</span><h3>긴 작업을 세션으로 끊어 설계하기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 큰 작업(예: 강의 커리큘럼 전체)을 한 번에 시키니 결과가 얕거나 중간에 흐트러질 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>나는 <span class="ph">[하려는 큰 작업]</span>을 완성하고 싶어.
+이걸 한 번에 다 하지 말고, 단계(세션)로 나눠서 진행하고 싶어.
+
+먼저 전체 작업을 3~5개 단계로 쪼개서 계획을 보여줘.
+각 단계가 끝나면 "다음 단계 갈까요?" 하고 나한테 확인받고 진행해줘.
+지금은 1단계만 하고 멈춰. 전체 계획부터 보여줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "지금은 1단계만 하고 멈춰"가 핵심이에요. 이 한 줄이 없으면 코워크가 끝까지 달려버려서 검토할 틈이 없거든요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">03</span><h3>이전 작업 이어가기 (컨텍스트 복원)</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 어제 하던 작업을 오늘 이어서 하고 싶은데, 처음부터 다시 설명하기 귀찮을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>지난번에 <span class="ph">[했던 작업 / 만들던 결과물]</span> 작업을 하다가 멈췄어.
+관련 파일은 이 프로젝트 안에 있어.
+
+먼저 그 파일들을 확인하고,
+- 지금까지 어디까지 진행됐는지
+- 다음에 뭘 해야 하는지
+이 두 가지를 정리해서 나한테 먼저 보여줘.
+내가 확인하면 그때 이어서 진행하자.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 작업 끝낼 때 "진행 상황 요약본 파일로 남겨줘"를 습관화하면, 다음날 이 프롬프트가 훨씬 잘 먹혀요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">04</span><h3>나에 대한 기본 정보 한 번에 학습시키기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 매번 "저는 1인 코치고요, 톤은 이렇고요…"를 반복 설명하는 게 지칠 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>앞으로 이 프로젝트에서 작업할 때 항상 기억할 내 기본 정보를
+정리한 파일을 만들어줘. 파일 이름은 "00_나의_프로필.md"로 해줘.
+
+내용은 이렇게 채워줘:
+- 직업: <span class="ph">[직업]</span>
+- 주요 고객: <span class="ph">[누구를 돕는지]</span>
+- 글/말투 톤: <span class="ph">[예: 친근한 존댓말, 격식 없음]</span>
+- 자주 쓰는 결과물: <span class="ph">[블로그, 제안서, 강의안 등]</span>
+- 절대 쓰면 안 되는 표현: <span class="ph">[있으면 적기]</span>
+
+이 파일을 기준으로 앞으로 모든 작업을 진행해줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 이 프로필 파일 하나가 30개 프롬프트의 토대예요. 이거 만들어두면 다른 프롬프트들 결과가 다 좋아져요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">05</span><h3>작업 끝낼 때 인수인계 노트 남기기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 오늘 작업을 마무리하면서, 내일의 나(또는 다음 세션)에게 깔끔하게 넘기고 싶을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>오늘 작업 여기서 마무리할게.
+다음에 이어서 할 수 있게 "인수인계 노트"를 파일로 만들어줘.
+
+이렇게 정리해줘:
+1. 오늘 완성한 것 (파일명 포함)
+2. 아직 안 끝난 것 / 다음에 할 것
+3. 다음에 시작할 때 나한테 줄 첫 프롬프트 한 줄
+파일명은 "인수인계_<span class="ph">[날짜]</span>.md"로.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 3번 "다음 첫 프롬프트 한 줄"이 진짜 꿀이에요. 내일 그거 복붙만 하면 바로 이어지거든요.</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 카테고리 B ===== -->
+  <section class="cat" id="cat2">
+    <div class="cat-head">
+      <div class="cat-badge">B</div>
+      <div class="txt">
+        <h2>파일 · 문서 자동화</h2>
+        <p>코워크가 일반 채팅과 가장 다른 지점이 바로 여기예요. 여러 파일을 한 번에 다루고, 반복 작업을 패턴으로 굳히는 것.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">06</span><h3>여러 파일 한 번에 정리·통합</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 흩어진 메모, 자료 파일이 여러 개인데 하나로 정리된 문서가 필요할 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>지금 올린 파일 <span class="ph">[개수]</span>개를 모두 읽고,
+<span class="ph">[목적: 예 - 강의안 한 편, 제안서 초안]</span> 으로 통합해줘.
+
+작업 순서:
+1. 각 파일에서 핵심만 뽑아 한 줄 요약 (어떤 내용인지 먼저 보여줘)
+2. 중복되는 내용은 합치고, 빠진 흐름은 채워줘
+3. <span class="ph">[원하는 형식: 마크다운 문서 / 표]</span> 으로 최종본 만들어줘
+1번까지만 먼저 하고 멈춰. 내가 확인할게.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "1번까지만 먼저"로 끊어주면, 코워크가 자료를 잘못 이해한 채 끝까지 가는 사고를 막을 수 있어요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">07</span><h3>파일에서 원하는 정보만 추출해 표로</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 긴 문서나 자료에서 특정 항목만 뽑아 정리표가 필요할 때 (예: 고객 리스트, 일정)</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>올린 파일에서 다음 항목만 뽑아서 표로 정리해줘.
+
+뽑을 항목: <span class="ph">[예: 이름, 신청일, 문의 내용, 후속 필요 여부]</span>
+- 표는 보기 좋게 정렬해줘 (<span class="ph">[기준: 날짜순 등]</span>)
+- 정보가 없는 칸은 "미기재"로 표시
+- 표 아래에 "후속 조치가 필요한 건"만 따로 목록으로 한 번 더 정리
+
+결과는 복사해서 바로 쓸 수 있게 표로 출력해줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "정보 없으면 미기재로"를 안 넣으면 코워크가 빈칸을 추측으로 채울 수 있어요. 이 한 줄이 데이터 신뢰도를 지켜줘요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">08</span><h3>긴 문서 → 핵심 한 장 요약본</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 받은 자료/계약서/리포트가 너무 길어서, 핵심만 빠르게 파악해야 할 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>올린 문서를 읽고, A4 한 장 분량으로 요약해줘.
+
+이 구조로 정리해줘:
+- 한 줄 핵심 (이 문서가 결국 말하는 것)
+- 꼭 알아야 할 포인트 3~5개
+- 내가 주의하거나 결정해야 할 것
+- 모르는 용어가 있으면 그 자리에서 풀어서 설명
+
+내가 <span class="ph">[입장: 예 - 이걸 검토하는 사람]</span> 입장이라는 걸 감안해서 정리해줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "내 입장"을 알려주면 요약의 초점이 확 달라져요. 검토자냐, 발표자냐에 따라 봐야 할 게 다르거든요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">09</span><h3>같은 작업을 매번 똑같이 (작업 템플릿화)</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 매주 반복하는 작업(주간 리포트, 정기 콘텐츠)을 매번 똑같은 품질로 뽑고 싶을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>나는 <span class="ph">[반복 작업: 예 - 주간 업무 리포트]</span>를 매주 만들어.
+이걸 매번 똑같은 형식으로 뽑을 수 있게 "작업 지시서"를 파일로 만들어줘.
+
+작업 지시서에 들어갈 것:
+- 이 작업의 목적
+- 들어가야 할 항목과 순서
+- 톤·분량 기준
+- 내가 매번 새로 줄 정보는 무엇인지 (입력 칸 표시)
+
+다음부터 내가 "이 지시서대로 이번 주 거 만들어줘 + [자료]"
+라고만 하면 되게 설계해줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 이게 코워크의 진짜 힘이에요. 한 번 지시서를 만들면, 다음부터는 자료만 주면 끝. 이게 쌓이면 카테고리 F의 "나만의 워크플로"가 돼요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">10</span><h3>파일 형식 변환 + 정리 동시에</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 메모해둔 텍스트를 깔끔한 문서로, 또는 표 데이터를 다른 형태로 바꿔야 할 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>올린 <span class="ph">[원본: 예 - 회의 메모 텍스트]</span>를
+<span class="ph">[목표 형식: 예 - 정식 회의록 문서 / 표 / 발표 자료]</span> 로 바꿔줘.
+
+단순 변환만 하지 말고:
+- 비어 있거나 흐름이 끊긴 부분은 자연스럽게 메워줘
+- 내 톤(<span class="ph">[톤 적기]</span>)에 맞게 다듬어줘
+- 결과는 바로 쓸 수 있는 완성본 파일로 만들어줘
+
+작업 전에 "이렇게 바꿀게요" 방향을 한 줄로 먼저 알려줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "방향 먼저 한 줄"을 요청하면, 엉뚱한 방향으로 완성본까지 만들어버리는 낭비를 줄일 수 있어요.</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 카테고리 C ===== -->
+  <section class="cat" id="cat3">
+    <div class="cat-head">
+      <div class="cat-badge">C</div>
+      <div class="txt">
+        <h2>콘텐츠 생산 가속</h2>
+        <p>1인 전문가의 진짜 병목은 콘텐츠예요. 하나의 소스로 여러 채널을 채우는 게 핵심이에요.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">11</span><h3>음성 메모 → 블로그 글</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 떠오른 생각을 말로 녹음/받아쓰기 해뒀는데, 글로 정리할 시간이 없을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>아래는 내가 말로 떠든 걸 받아쓴 거라 두서가 없어.
+이걸 블로그 글로 정리해줘.
+
+- 독자: <span class="ph">[누가 읽는지]</span>
+- 톤: 친근한 존댓말, 옆자리에서 얘기하듯
+- 첫 2~3줄은 "더 읽고 싶게" 만드는 도입으로
+- 내 경험/생각은 살리고, 군더더기 말버릇은 정리
+- 끝에 독자가 할 다음 행동 한 가지 자연스럽게 안내
+
+[받아쓴 내용]
+<span class="ph">[여기에 붙여넣기]</span></pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 받아쓴 원문을 너무 다듬어서 넣지 마세요. 말투의 날것이 살아있을수록 글에 "사람 냄새"가 남아요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">12</span><h3>글 1개 → 멀티 채널 동시 변환</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 블로그 글 하나 썼는데, 이걸 SNS·뉴스레터로도 돌리고 싶을 때 (제일 자주 쓰게 될 거예요)</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>올린 글(또는 아래 글)을 바탕으로, 채널별 버전을 만들어줘.
+각 채널 특성에 맞게 길이·톤·구조를 다르게:
+
+1. 페이스북용: 첫 2줄에서 "더 보기"를 누르게 만드는 훅 + 공감 유도
+2. 인스타 캡션용: 짧고 리듬감 있게, 줄바꿈 살려서
+3. 뉴스레터 도입부용: 받자마자 열어보고 싶은 3~4줄
+
+원본의 핵심 메시지는 유지하되, 채널마다 새로 쓴 느낌으로.
+
+[원본 글]
+<span class="ph">[여기에 붙여넣기 또는 파일 첨부]</span></pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 채널을 한 번에 다 시키되, 마음에 안 드는 것만 "2번만 다시"라고 콕 집어 재요청하면 시간이 확 줄어요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">13</span><h3>내 톤 학습시켜서 글 쓰기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — AI 글이 "내 말투가 아니야" 싶을 때. 내가 쓴 글을 샘플로 톤을 학습시키고 싶을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>내가 예전에 쓴 글 <span class="ph">[2~3개]</span>를 올릴게(또는 아래 첨부).
+이 글들을 분석해서 내 글쓰기 톤의 특징을 정리해줘.
+
+- 자주 쓰는 말투/어미
+- 문장 길이와 리듬
+- 독자를 부르는 방식
+- 피하는 표현
+
+정리한 다음, 이 톤 그대로 <span class="ph">[새 주제]</span> 글을 한 편 써줘.
+"이건 내가 쓴 것 같다" 소리가 나오게.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 분석 결과를 "내_글쓰기_톤.md" 파일로 저장해두면, 앞으로 모든 글 작업에서 "이 톤 파일대로 써줘" 한 줄이면 끝나요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">14</span><h3>콘텐츠 아이디어 막힐 때 뚫기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — "이번 주에 뭘 쓰지?" 매주 반복되는 그 막막함을 풀고 싶을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>나는 <span class="ph">[전문 분야]</span> 1인 전문가야.
+내 고객은 <span class="ph">[고객의 고민 한 줄]</span> 때문에 힘들어해.
+
+이 고객이 "오 이거 내 얘기네" 하고 멈출 만한
+콘텐츠 주제 10개를 뽑아줘.
+- 각 주제마다: 제목안 + 이 글이 풀어줄 고객의 답답함 한 줄
+- 뻔한 거 말고, 같은 분야 사람들이 잘 안 다루는 각도로
+
+그중 내가 1개 고르면, 그걸 글 구조까지 잡아줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "고객의 고민 한 줄"을 진짜 고객이 했던 말 그대로 적어보세요. 추상적인 키워드보다 훨씬 날카로운 주제가 나와요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">15</span><h3>강의·웨비나 자료 초안 잡기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 강의 한 편을 새로 짜야 하는데, 백지에서 시작하기 막막할 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>나는 <span class="ph">[주제]</span>로 <span class="ph">[시간: 예 - 60분]</span> 강의를 준비해.
+대상은 <span class="ph">[수강 대상]</span>이고,
+이 강의가 끝나면 사람들이 <span class="ph">[얻어가야 할 것]</span>을 갖고 가야 해.
+
+먼저 강의 전체 흐름(목차)을 시간 배분과 함께 짜줘.
+- 도입에서 어떻게 집중시킬지
+- 핵심 파트는 무엇에 시간을 가장 많이 쓸지
+- 끝에서 어떤 행동을 남길지
+
+목차부터 보여주고, 내가 OK 하면 슬라이드 내용으로 들어가자.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 목차 단계에서 충분히 다듬고 넘어가세요. 여기서 대충 넘기면 슬라이드 만든 뒤 갈아엎게 되거든요. 제가 써보니 이 순서가 제일 빨라요.</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 카테고리 D ===== -->
+  <section class="cat" id="cat4">
+    <div class="cat-head">
+      <div class="cat-badge">D</div>
+      <div class="txt">
+        <h2>비즈니스 운영</h2>
+        <p>고객 응대, 회의, 메일… 시간을 가장 많이 잡아먹는데 티는 안 나는 일들. 여기서 시간을 벌어야 진짜 일을 할 수 있어요.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">16</span><h3>고객 문의 답변 초안 (톤 유지)</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 비슷한 문의에 매번 답을 쓰는데, 따뜻하면서 명확한 톤을 매번 유지하기 힘들 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>고객에게 받은 문의야. 답변 초안을 써줘.
+
+[고객 문의]
+<span class="ph">[문의 내용 붙여넣기]</span>
+
+조건:
+- 톤: 따뜻하지만 프로답게, 친근한 존댓말
+- 먼저 고객의 상황을 한 번 받아준 다음 답
+- 결정에 필요한 정보는 명확하게, 빙빙 돌리지 말 것
+- 답변 끝에 다음 단계(자연스럽게) 안내
+
+내가 살짝만 고쳐서 보낼 수 있는 수준으로 완성해줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 자주 오는 문의 유형 3가지를 모아 "고객답변_가이드.md"로 만들어두면, 이후엔 문의만 붙여넣어도 톤이 일정해져요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">17</span><h3>회의·통화 메모 → 정리된 회의록</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 통화/미팅 끝나고 휘갈겨 쓴 메모를, 나중에 봐도 알아볼 수 있게 정리해야 할 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>아래는 <span class="ph">[미팅/통화]</span> 중 휘갈겨 쓴 메모야.
+이걸 정리된 회의록으로 만들어줘.
+
+[메모]
+<span class="ph">[붙여넣기]</span>
+
+이렇게 정리:
+- 한 줄 결론 (이 미팅에서 결국 정해진 것)
+- 논의된 핵심 사항
+- 결정 사항 / 보류된 것
+- 할 일 목록 (누가 · 무엇을 · 언제까지)
+애매한 부분은 "확인 필요"로 표시해줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "애매하면 확인 필요로 표시"가 핵심이에요. 메모가 부족한 걸 코워크가 멋대로 채우면 나중에 사고 나거든요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">18</span><h3>제안서·견적 초안 빠르게</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 협업/강의 문의가 왔는데, 제안서 형식 잡는 데만 한 시간씩 쓰고 있을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>이런 문의가 왔어. 제안서 초안을 만들어줘.
+
+- 의뢰: <span class="ph">[무엇을 요청받았는지]</span>
+- 상대: <span class="ph">[회사/담당자 / 상황]</span>
+- 내가 제공할 것: <span class="ph">[서비스 내용]</span>
+- 예산/기간 조건: <span class="ph">[있으면]</span>
+
+제안서 구조:
+1. 상대의 상황·니즈 정리 (내가 제대로 이해했다는 신호)
+2. 제안 내용과 진행 방식
+3. 기대 효과
+4. 일정·비용 (협의 여지 표현 포함)
+
+전문적이되 딱딱하지 않은 톤으로.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 1번 "상대 상황 정리"를 잘 쓰면 수주율이 올라가요. 견적부터 들이밀지 말고, 상대를 이해했다는 걸 먼저 보여주는 구조예요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">19</span><h3>오늘 할 일 우선순위 정리</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 할 일은 많은데 뭐부터 해야 할지 머리가 안 돌아갈 때 (아침에 쓰면 좋아요)</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>오늘 해야 할 일들이야. 우선순위를 정리해줘.
+
+[할 일 목록]
+<span class="ph">[떠오르는 대로 쭉 적기]</span>
+
+기준:
+- 마감/약속 있는 건 먼저
+- "급해 보이지만 안 급한 것"과 "안 급해 보이지만 중요한 것" 구분해줘
+- 오늘 안에 다 못 하면, 내일로 미뤄도 되는 건 표시
+- 가장 먼저 손대야 할 1순위 딱 하나 콕 집어줘
+
+나는 <span class="ph">[가용 시간: 예 - 오후 4시간]</span> 정도 일할 수 있어.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "1순위 딱 하나 콕 집어줘"가 핵심이에요. 목록만 받으면 또 멍하니 보게 되거든요. 시작점 하나를 받는 게 중요해요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">20</span><h3>내 비즈니스 현황 점검 질문받기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 일은 바쁜데 방향이 맞는지 불안할 때. 혼자선 객관적으로 못 볼 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>나는 <span class="ph">[하는 일]</span> 1인 전문가야.
+요즘 <span class="ph">[고민/막힌 지점]</span> 때문에 머리가 복잡해.
+
+나한테 답을 바로 주지 말고,
+내 상황을 정확히 진단하기 위한 질문을 5개만 먼저 던져줘.
+- 내가 놓치고 있을 수 있는 각도의 질문으로
+- 한 번에 다 묻지 말고, 내가 답하면 그에 따라 다음 질문
+
+첫 질문 하나만 던지고 기다려줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "답 주지 말고 질문부터"가 이 프롬프트의 전부예요. AI한테 정답을 받는 게 아니라, 내 생각을 끄집어내는 용도로 쓰는 거예요. 한번 해보시면 느낌이 와요.</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 카테고리 E ===== -->
+  <section class="cat" id="cat5">
+    <div class="cat-head">
+      <div class="cat-badge">E</div>
+      <div class="txt">
+        <h2>고객 · 데이터 정리</h2>
+        <p>설문 응답, 신청자 명단, 후기… 쌓이기만 하고 안 보던 데이터를 자산으로 바꾸는 작업이에요.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">21</span><h3>설문/신청 응답(CSV) 한 번에 분석</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 구글폼 응답이 수십 개 쌓였는데, 열어보기만 하고 분석은 못 하고 있을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>올린 CSV는 <span class="ph">[무엇에 대한]</span> 응답이야.
+전체를 읽고 분석해줘.
+
+1. 응답자들의 공통된 고민/패턴 (많이 나온 순)
+2. 눈에 띄는 소수 의견 중 중요한 것
+3. 이 사람들에게 내가 뭘 제안하면 좋을지 인사이트
+4. 응답 품질이 부실한 항목이 있으면 알려줘
+
+추측으로 채우지 말고, 데이터에 있는 것만 근거로.
+숫자로 말할 수 있는 건 숫자로.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "추측 말고 데이터에 있는 것만"을 꼭 넣으세요. 이게 없으면 그럴듯한데 근거 없는 분석이 나와요. 의사결정에 쓸 거면 특히 중요해요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">22</span><h3>고객 후기 → 활용 가능한 자산으로</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 받은 후기들이 흩어져 있는데, 마케팅에 쓸 수 있게 정리하고 싶을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>올린 건 고객 후기들이야. 마케팅에 쓸 수 있게 정리해줘.
+
+1. 후기를 유형별로 분류 (예: 결과 만족 / 과정 만족 / 전환 스토리)
+2. 각 후기에서 "그대로 인용해도 좋은 핵심 문장" 한 줄씩 뽑기
+3. 이 후기들이 공통으로 증명하는 내 강점 3가지
+4. 세일즈 페이지/SNS에 바로 쓸 인용 후보 5개
+
+원문 표현은 살리되, 개인정보는 가려서.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "그대로 인용해도 좋은 문장"을 뽑게 하면, 내가 후기를 다시 안 읽어도 핵심만 자산으로 남아요. 이게 쌓이면 영업 자료가 저절로 채워져요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">23</span><h3>고객 데이터로 페르소나 도출</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — "내 고객이 누구지?"를 감이 아니라 데이터로 확인하고 싶을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>올린 자료(<span class="ph">[설문/후기/문의 내역 등]</span>)를 종합해서
+내 실제 고객 페르소나를 도출해줘.
+
+- 가장 많은 유형 1~2명을 구체적인 인물로 그려줘
+  (나이대 / 직업 / 진짜 고민 / 그가 쓰는 말투로 표현한 답답함)
+- 이 사람이 나를 선택하기까지 거치는 마음의 단계
+- 이 사람에게 안 통할 메시지(피해야 할 것)도 알려줘
+
+내 감이 아니라 자료에 나타난 근거로 말해줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "그가 쓰는 말투로 표현한 답답함"이 포인트예요. 이 표현을 그대로 콘텐츠 제목이나 카피에 쓰면 반응이 달라져요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">24</span><h3>흩어진 기록 → 정기 리포트로</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 한 달간의 활동/매출/문의 기록이 여기저기 있는데, 월간 리포트로 묶고 싶을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>올린 자료들은 지난 <span class="ph">[기간]</span> 동안의 기록이야.
+이걸 월간 리포트로 정리해줘.
+
+구성:
+- 이번 달 한 줄 총평
+- 숫자로 본 결과 (가능한 항목만, 없는 건 무리해서 만들지 말 것)
+- 잘된 것 / 아쉬운 것
+- 다음 달에 이어갈 것 1~3개
+
+리포트는 나중에 다시 봐도 흐름이 보이게,
+지난달과 비교할 수 있는 형식으로 만들어줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "지난달과 비교 가능한 형식"으로 요청해두면, 매달 같은 틀로 쌓여서 몇 달 뒤 흐름이 한눈에 보여요. 1인 사업에서 이 흐름이 진짜 자산이에요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">25</span><h3>경쟁/참고 자료 비교 정리</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 참고할 곳들을 둘러봤는데, 머릿속에서만 맴돌고 정리가 안 될 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>아래는 내가 참고하려는 <span class="ph">[대상: 예 - 비슷한 강의/서비스]</span> 정보야.
+(자료 첨부 또는 내용 붙여넣기)
+
+이걸 비교표로 정리하고, 그 아래에:
+- 이들이 공통으로 잘하는 것
+- 비어 있는 빈틈 (내가 들어갈 자리)
+- 내가 차별화할 수 있는 한 가지 각도
+를 정리해줘.
+
+"남들 따라 하자"가 아니라 "내가 다르게 갈 곳"을 찾는 게 목적이야.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 목적을 "차별화 지점 찾기"로 명시하는 게 중요해요. 안 그러면 그냥 비교표만 주고 끝나거든요. 결국은 내 자리를 찾는 게 핵심이에요.</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 카테고리 F ===== -->
+  <section class="cat" id="cat6">
+    <div class="cat-head">
+      <div class="cat-badge">F</div>
+      <div class="txt">
+        <h2>나만의 워크플로 설계</h2>
+        <p>여기까지 오면 한 단계 위예요. 매번 새로 시키는 게 아니라, 반복 업무를 "내 시스템"으로 굳히는 단계. 코워크를 제대로 쓰는 분들이 결국 도달하는 지점이에요.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">26</span><h3>내 반복 업무 진단받기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 뭔가 매번 비슷한 걸 반복하는 것 같은데, 뭘 자동화/템플릿화할지 모를 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>내가 일주일 동안 하는 일을 쭉 적을게.
+
+[내 주간 업무]
+<span class="ph">[떠오르는 대로 적기]</span>
+
+이 중에서:
+1. 매번 거의 똑같이 반복되는 것 (= 템플릿/지시서로 만들 것)
+2. 사람이 꼭 판단해야 하는 것 (= 자동화하면 안 되는 것)
+3. 가장 먼저 시스템으로 만들면 시간이 가장 많이 절약될 것 1개
+
+이렇게 진단해줘. 3번부터 같이 만들어보자.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "자동화하면 안 되는 것"까지 짚어달라고 하는 게 중요해요. 다 자동화하려다 품질 무너지는 게 1인 사업의 흔한 실수거든요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">27</span><h3>반복 작업을 "전용 지시서"로 굳히기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 26번에서 찾은 그 반복 업무를, 매번 똑같이 굴러가는 시스템으로 만들고 싶을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre><span class="ph">[반복 업무 이름]</span>을 앞으로 항상 똑같은 품질로 처리할
+전용 지시서를 파일로 만들어줘.
+
+지시서에 들어갈 것:
+- 이 작업의 목적과 완성 기준 (뭘 보면 "잘 됐다"인지)
+- 단계별 처리 순서
+- 내가 매번 새로 줄 입력 항목 (명확히 표시)
+- 자주 나오는 실수와 그 방지법
+
+그리고 이 지시서를 어떻게 불러 쓰면 되는지
+사용법 한 줄도 맨 위에 적어줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "완성 기준"을 꼭 넣으세요. 이게 있어야 다음에 결과가 들쭉날쭉하지 않아요. 제가 만들어보니 이 항목 하나가 품질을 좌우하더라고요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">28</span><h3>아침 5분 브리핑 루틴 만들기</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 매일 아침 "오늘 뭐부터 하지" 헤매는 시간을 5분으로 줄이고 싶을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>매일 아침 내가 "오늘 브리핑"이라고 치면,
+정해진 형식으로 하루를 정리해주는 루틴을 설계해줘.
+
+브리핑에 들어갈 것:
+- 오늘 꼭 해야 할 일 1~3개 (어제 인수인계 노트 참고)
+- 미뤄도 되는 것
+- 오늘의 1순위 한 줄
+- 시작용 첫 행동 한 가지
+
+이 루틴을 위해 내가 매일 아침 뭘 입력해줘야 하는지,
+그리고 그걸 최소화하려면 어떻게 세팅해두면 되는지도 알려줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 5번(인수인계 노트)과 짝으로 쓰면 위력이 배가돼요. 어제 남긴 노트 → 오늘 아침 브리핑으로 자연스럽게 이어지거든요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">29</span><h3>여러 단계 작업을 한 흐름으로 연결</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — "자료 정리 → 글 작성 → 채널별 변환"처럼 늘 같은 순서로 도는 작업을 한 번에 굴리고 싶을 때</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>나는 보통 이 순서로 일해:
+<span class="ph">[1단계 → 2단계 → 3단계 적기]</span>
+
+이 흐름을 하나의 작업 순서로 묶어줘.
+- 각 단계가 끝나면 다음으로 넘어가기 전에 나한테 한 번 확인
+- 앞 단계 결과가 뒤 단계에 자동으로 이어지게
+- 중간에 내가 수정하면 그 뒤 단계도 반영되게
+
+이 흐름을 "<span class="ph">[흐름 이름]</span>"으로 저장해서,
+다음부터 이름만 부르면 시작되게 설계해줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — 단계마다 "확인받고 넘어가기"를 꼭 넣으세요. 끊김 없이 다 돌리면 빠르긴 한데, 1단계 실수가 끝까지 따라가요. 속도보다 흐름의 안정성이 결국 더 빨라요.</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="card-no">30</span><h3>한 달 뒤 나를 위한 시스템 점검</h3></div>
+      <div class="when">📍 <b>이럴 때</b> — 코워크를 한동안 써왔는데, 잘 쓰고 있는 건지 한 번 점검하고 싶을 때 (월 1회 추천)</div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span>
+        <button class="copy-btn">복사</button>
+        <pre>지난 한 달간 이 프로젝트에서 한 작업들을 돌아보고,
+내 코워크 활용을 점검해줘.
+
+봐줄 것:
+- 잘 자리잡은 루틴/지시서는 무엇인지
+- 만들어두고 안 쓰는 건 없는지 (있으면 왜 안 쓰는지 추측)
+- 아직도 매번 손으로 반복하는데 시스템화 안 한 것
+- 다음 달에 딱 1개만 개선한다면 무엇을 추천하는지
+
+칭찬 말고 솔직하게. 안 되는 건 안 된다고 말해줘.</pre>
+      </div>
+      <div class="tip"><span class="ic">💡</span><span><b>한 끗</b> — "칭찬 말고 솔직하게"를 넣는 이유가 있어요. 점검은 잘한 것 확인이 아니라 빈틈을 찾는 거잖아요. 듣기 좋은 말만 받으면 점검을 안 하느니만 못해요.</span></div>
+    </div>
+  </section>
+
+  <!-- 마무리 -->
+  <div class="closing">
+    <h3>30개를 다 쓰려고 하지 마세요.<br><span class="gd">지금 막힌 한 개</span>부터예요.</h3>
+    <p>이 자료의 진짜 목적은 30개를 외우게 하는 게 아니에요. 후기를 쓰셨다는 건 이미 코워크의 가능성을 본 거잖아요. 그 감각이 식기 전에, 지금 가장 답답한 업무 하나에 딱 한 개만 써보시는 거예요.</p>
+    <p>한번 해보시면 알게 돼요. "아, 이래서 코워크구나" 하는 순간이 오거든요. 그 순간부터는 나머지가 알아서 따라와요.</p>
+    <div class="final-tip">
+      <b>👉 추천 시작 순서</b> — 처음이라면 <b>04번(내 프로필 만들기)</b> → <b>05번(인수인계 노트)</b> → <b>28번(아침 브리핑)</b> 순서로 가보세요. 이 세 개만 자리잡아도 매일 쓰는 도구가 됩니다. 결국은 거창한 자동화가 아니라, 이 작은 루틴이 진짜 차이를 만들어요.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">엑스퍼트 AI 클럽 | 최은희 &amp; 정장식</div>
+    <div>클로드 코워크 세미나 후기 작성자분들을 위한 실전 자료 · 2026</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">복사됐어요. 코워크에 붙여넣으세요 ✨</div>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.prompt-box');
+      var text = box.querySelector('pre').innerText;
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position='fixed';ta.style.opacity='0';
+      document.body.appendChild(ta);
+      ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta);
+
+      var original = btn.innerText;
+      btn.innerText = '복사됨 ✓';
+      btn.classList.add('done');
+      var toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(function(){
+        btn.innerText = original;
+        btn.classList.remove('done');
+      }, 1800);
+      setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+    });
+  });
+</script>
+
+</body>
+</html>
